@@ -3,4 +3,4 @@
 
 using namespace cv;
 
-void EnhanceColor(const Mat src_image, Mat& dest_image, float portion);
+void EnhanceColor(const Mat src_image, Mat& dest_image, float thresh_portion);
