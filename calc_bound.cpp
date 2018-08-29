@@ -6,17 +6,13 @@ using namespace cv;
 
 uchar CalcLowerBound(const Mat hist, const int sum_hist, float bound_portion)
 {
-	int accumulated_frequency = 0;
+	int accumulated_sum_frequency = 0;
 	for (int i = 0; i < 255; i++)
 	{
-		accumulated_frequency += hist.at<float>(i);
-		float accumulated_percentage = float(accumulated_frequency) / float(sum_hist);
+		accumulated_sum_frequency += hist.at<float>(i);
+		float accumulated_proportion = float(accumulated_sum_frequency) / float(sum_hist);
 
-		/*if (accumulated_frequency > 0) {
-		cout << "intensity[" << i << "] accum:" << accumulated_frequency << "(" << accumulated_percentage * 100 << "%)" << endl;
-		}*/
-
-		if (accumulated_percentage > bound_portion)
+		if (accumulated_proportion > bound_portion)
 		{
 			return i;
 		}
@@ -25,14 +21,13 @@ uchar CalcLowerBound(const Mat hist, const int sum_hist, float bound_portion)
 
 uchar CalcUpperBound(const Mat hist, const int sum_hist, float bound_portion)
 {
-	int accumulated_frequency = 0;
+	int accumulated_sum_frequency = 0;
 	for (int i = 255; i > 0; i--)
 	{
-		accumulated_frequency += accumulated_frequency += hist.at<float>(i);
-		float accumulated_percentage = float(accumulated_frequency) / float(sum_hist);
-		//cout << "accum:" << accumulated_frequency << "(" << accumulated_percentage * 100 << "%)" << endl;
+		accumulated_sum_frequency += accumulated_sum_frequency += hist.at<float>(i);
+		float accumulated_proportion = float(accumulated_sum_frequency) / float(sum_hist);
 
-		if (accumulated_percentage > bound_portion)
+		if (accumulated_proportion > bound_portion)
 		{
 			return i;
 		}
