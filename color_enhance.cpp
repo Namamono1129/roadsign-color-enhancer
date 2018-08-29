@@ -34,6 +34,7 @@ void EnhanceColor(const Mat src_image, Mat& dest_image, float thresh_portion) {
 
 	float scale_factor = (255.0 / (higher_bound - lower_bound));
 
+	/*** Scale S Histogram ***/
 	cv::subtract(hsv_channels[1], lower_bound, hsv_channels[1]);
 	cv::multiply(hsv_channels[1], scale_factor, hsv_channels[1]);
 
