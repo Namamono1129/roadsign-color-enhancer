@@ -14,19 +14,19 @@ This program works as a filter which enhances contrast between road sign(vivid-c
 # Principle(WIP)
 Basically, every part of the whole algorithm depends on histogram manipulation.
 
-First, it expands intensity histogram from certain range into max range [0.0, 1.0] in all of RGB channels.
-The original range is calculated as below:
+First, it scales intensity histogram in all of RGB channels from certain range into max range [0.0, 1.0].
+The original range is calculated as below (Works well experimentally):
 
 > [pixel value of the pixel at (i_m * i_m / 1200.0) percentile, pixel value of the pixel at (i_m * i_m / 1200.0) percentile]
 
 i_m denotes mean intensity value of all pixels in all (RGB) channels.
 
-It is followed by steep histogram expansion in HSV colorspace.
+It is followed by steep histogram scaling in HSV colorspace.
 Given percentile parameter p, in S (Saturation) channel, the range
 
 >[pixel value of the pixel at p percentile, pixel value of the pixel at (100 - p) percentile]
 
-will be expanded into [1.0, 1.0].
+will be expanded into [0.0, 1.0].
 
 Finally, all pixel values in V channel(intensity) will be maxed out, except zero-value pixels.
 
