@@ -14,13 +14,17 @@ This program works as a filter which enhances contrast between road sign(vivid-c
 # Principle(WIP)
 Basically, every part of the whole algorithm depends on histogram manipulation.
 
-First, it expands intensity histogram into max range [0.0, 1.0] in all of RGB channels.
-(a.k.a. White Balance Collection, Same algorithm as GIMP: https://docs.gimp.org/en/gimp-layer-white-balance.html)
+First, it expands intensity histogram from certain range into max range [0.0, 1.0] in all of RGB channels.
+The original range is calculated as below:
+
+> [pixel value of the pixel at (i_m * i_m / 1200.0) percentile, pixel value of the pixel at (i_m * i_m / 1200.0) percentile]
+
+i_m denotes mean intensity value of all pixels in all (RGB) channels.
 
 It is followed by steep histogram expansion in HSV colorspace.
 Given percentile parameter p, in S (Saturation) channel, the range
 
-[pixel value of the pixel at p percentile, pixel value of the pixel at (100 - p) percentile]
+>[pixel value of the pixel at p percentile, pixel value of the pixel at (100 - p) percentile]
 
 will be expanded into [1.0, 1.0].
 
